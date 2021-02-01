@@ -46,9 +46,13 @@ class GenericButton implements ButtonProviderInterface
     public function __construct(
         Context $context,
         \Magento\Framework\AuthorizationInterface $authorization
+        \Magento\Framework\Webapi\Rest\Request $request  //<-- added 
+
     ) {
         $this->context = $context;
         $this->_authorization = $authorization;
+        $this->_request = $request;  // <--added
+
     }
 
     /**
@@ -58,7 +62,9 @@ class GenericButton implements ButtonProviderInterface
      */
     public function getBannerId()
     {
-        return (int)$this->context->getRequest()->getParam('id');
+        // return (int)$this->context->getRequest()->getParam('id');
+        return (int)$this->_request->getParams('id');  //<-- changed
+
     }
 
     /**
